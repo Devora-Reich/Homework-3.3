@@ -138,7 +138,7 @@ namespace HW_3._3.Models
             command.Parameters.AddWithValue("@Id", Id);
             connection.Open();
 
-            return (string)command["CategoryName"];
+            return (string)command.ExecuteScalar();
         }
     }
 }

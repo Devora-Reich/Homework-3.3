@@ -41,6 +41,7 @@ namespace HW_3._3.Controllers
             NorthwindManager nm = new NorthwindManager(Properties.Settings.Default.ConStr);
             NorthwindProductsModel pm = new NorthwindProductsModel();
             pm.Products = nm.GetProductsByCategory(categoryId);
+            pm.CategoryName = nm.SetProductCategoryName(categoryId);
             return View(pm);
         }
     }
