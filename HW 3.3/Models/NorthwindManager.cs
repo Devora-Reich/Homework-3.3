@@ -22,6 +22,17 @@ namespace HW_3._3.Models
         public short Quantity { get; set; }
     }
 
+    public class Category
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class Product
+    {
+        public string Name { get; set; }
+    }
     public class NorthwindManager
     {
         private readonly string _connectionString;
@@ -76,6 +87,58 @@ namespace HW_3._3.Models
                 });
             }
             return orderDetails;
+        }
+
+        public List<Category> GetCategories()
+        {
+            SqlConnection connection = new SqlConnection(_connectionString);
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM Categories";
+            connection.Open();
+            List<Category> categories = new List<Category>();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                categories.Add(new Category
+                {
+                    Id = (int)reader["CategoryID"],
+                    Name = (string)reader["CategoryName"],
+                    Description = (string)reader["Description"],
+                });
+            }
+            return categories;
+        }
+
+        public List<Product> GetProductsByCategory(int categoryId)
+        {
+            SqlConnection connection = new SqlConnection(_connectionString);
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM Products " +
+                "WHERE CategoryID = @Id";
+            command.Parameters.AddWithValue("@Id", categoryId);
+            connection.Open();
+            List<Product> products = new List<Product>();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                products.Add(new Product
+                {
+                    Name = (string)reader["ProductName"]
+                });
+            }
+            return products;
+        }
+
+        public string SetProductCategoryName(int Id)
+        {
+            SqlConnection connection = new SqlConnection(_connectionString);
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT CategoryName FROM Categories " +
+                "WHERE CategoryId = @Id";
+            command.Parameters.AddWithValue("@Id", Id);
+            connection.Open();
+
+            return (string)command["CategoryName"];
         }
     }
 }

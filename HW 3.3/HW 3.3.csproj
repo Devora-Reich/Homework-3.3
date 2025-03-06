@@ -97,7 +97,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\NorthwindCategoriesModel.cs" />
     <Compile Include="Models\NorthwindManager.cs" />
+    <Compile Include="Models\NorthwindProductsModel.cs" />
     <Compile Include="Models\NorthwindViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -115,6 +117,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Northwind\categories.cshtml" />
+    <Content Include="Views\Northwind\products.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
